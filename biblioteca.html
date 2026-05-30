@@ -3,30 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Biblioteca Comunitária Senaieá</title>
+    <title>Biblioteca Comunitária Senai</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div class="tela">
+        <header>
+            <div class="titulo">
+                <h1>Biblioteca Comunitária</h1>
+            </div>
+            <div class="barraDePesquisa">
+                <input type="text" id="campoBusca" placeholder="Pesquisar por Título ou Autor">
+            </div>
+        </header>
 
-    <div class="moldura-celular">
-        <div class="tela-app">
-
-            <header>
-                <div class="app-bar">
-                    <h1>Biblioteca Comunitária</h1>
-                </div>
-                <div class="search-bar">
-                    <input type="text" id="campoBusca" placeholder="Nome do Livro">
-                </div>
-            </header>
-
-            <main id="resultadosBusca">
-            </main>
-
-            <footer>
-                <button class="btn-voltar">Voltar</button>
-            </footer>
+        <div class="adicionar-livro">
+            <form id="formAdicionar">
+                <input type="text" id="inputTitulo" placeholder="Título do Livro" required>
+                <input type="text" id="inputAutor" placeholder="Nome do Autor" required>
+                <input type="url" id="inputImagem" placeholder="URL da Imagem da Capa" required>
+                <button type="submit">Adicionar Livro</button>
+            </form>
         </div>
+
+        <main id="resultadosBusca">
+        </main>
     </div>
 
     <script src="script.js"></script>
