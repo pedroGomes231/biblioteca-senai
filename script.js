@@ -7,25 +7,17 @@ let todosOsLivros = [];
 
 // 1. LER LIVROS (GET) 
 async function buscarLivrosDaAPI() {
-    try {
-        const resposta = await fetch(API_URL);
-        
-        if (resposta.ok) { 
-            const json = await resposta.json();
-            todosOsLivros = json.dados; 
-            exibirLivros(todosOsLivros);
-        } else {
-            resultados.innerHTML = "<p>Erro: O servidor respondeu, mas não encontrou os dados.</p>";
-        }
-    } catch (erro) {
-        console.error("Erro de conexão. O Python (FastAPI) está rodando?", erro);
-        resultados.innerHTML = "<p>Erro de conexão. Verifique se o Back-end está ligado.</p>";
+    const resposta = await fetch(API_URL);
+    if (resposta.ok) { 
+        const json = await resposta.json();
+        todosOsLivros = json.dados; 
+        exibirLivros(todosOsLivros);
     }
 }
 
 // 2. EXIBIR LIVROS NA TELA
 function exibirLivros(lista) {
-    resultados.innerHTML = ""; 
+    resultados.innerHTML = ""; // PARA LIMPAR A TELA
     const grid = document.createElement("div");
     grid.classList.add("grid-livros");
 
@@ -83,9 +75,9 @@ formAdicionar.addEventListener("submit", async (evento) => {
     evento.preventDefault(); 
     
     const novoLivro = {
-        titulo: document.getElementById("inputTitulo").value,
-        autor: document.getElementById("inputAutor").value,
-        url_imagem: document.getElementById("inputImagem").value,
+        titulo: document.getElementById("Titulo").value,
+        autor: document.getElementById("Autor").value,
+        url_imagem: document.getElementById("Imagem").value,
         disponivel: true
     };
 
