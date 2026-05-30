@@ -66,12 +66,25 @@ def get_db():
 def pagina_inicial():
     return RedirectResponse(url="/docs")
 
+# ==========================================
 # ROTAS (Endpoints do CRUD)
+# ==========================================
+
+# 1. LISTAR TODOS OS LIVROS
 @app.get("/livros")
 def listar_livros(db: Session = Depends(get_db)):
     livros = db.query(LivroDB).all()
     return {"dados": livros}
 
+# 2. BUSCAR UM LIVRO ESPECÍFICO PELO ID 
+@app.get("/livros/{id}")
+def buscar_livro_por_id(id: int, db: Session = Depends(get_db)):
+    livro = db.query(LivroDB).filter(LivroDB.id == id).first()
+    if not livro:
+        raise HTTPException(status_code=404, detail="Livro não encontrado")
+    return livro
+
+# 3. ADICIONAR UM NOVO LIVRO
 @app.post("/livros")
 def adicionar_livro(livro: Livro, db: Session = Depends(get_db)):
     novo_livro = LivroDB(
@@ -85,6 +98,7 @@ def adicionar_livro(livro: Livro, db: Session = Depends(get_db)):
     db.refresh(novo_livro)
     return {"mensagem": "Livro adicionado!", "id": novo_livro.id}
 
+# 4. ATUALIZAR UM LIVRO EXISTENTE
 @app.put("/livros/{id}")
 def atualizar_livro(id: int, livro_atualizado: Livro, db: Session = Depends(get_db)):
     livro = db.query(LivroDB).filter(LivroDB.id == id).first()
@@ -99,6 +113,7 @@ def atualizar_livro(id: int, livro_atualizado: Livro, db: Session = Depends(get_
     db.commit()
     return {"mensagem": "Livro atualizado!"}
 
+# 5. DELETAR UM LIVRO
 @app.delete("/livros/{id}")
 def deletar_livro(id: int, db: Session = Depends(get_db)):
     livro = db.query(LivroDB).filter(LivroDB.id == id).first()
